@@ -10,11 +10,11 @@ theme_words.p
 extra_adjs.p
 word_corpus/
 *.yaml
-saved_objects/glove/
+# saved_objects/glove/
 local_*
 py_files/.ipynb_checkpoints/
-saved_objects/fasttext/wiki-news-300d-1M.vec
-saved_objects/fasttext/
+# saved_objects/fasttext/wiki-news-300d-1M.vec
+# saved_objects/fasttext/
 test.py
 retrained_model/
 fine_tuning/

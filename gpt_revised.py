@@ -10,8 +10,8 @@ import time
 import helper
 from copy import deepcopy
 
-from transformers import GPT2Tokenizer, GPT2LMHeadModel, GPT2TokenizerFast, GPT2Config, GPTNeoForCausalLM
-from custom_beam_scorer import CustomGPT2Model
+from transformers import GPT2Tokenizer, GPT2LMHeadModel, GPT2TokenizerFast, GPT2Config, GPTNeoForCausalLM, GPT2Model
+# from custom_beam_scorer import CustomGPT2Model
 
 
 class gpt_gen:
@@ -32,6 +32,7 @@ class gpt_gen:
         self.model_size = model
 
         if "custom" in self.model_size:
+            # print(self.model_size)
             assert len(
                 self.model_size.split()) == 2, "custom should be in the form 'custom fine_tuning/twice_retrained' or something like that"
             model_path = model = self.model_size.split()[1]
@@ -41,8 +42,17 @@ class gpt_gen:
             else:
                 self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 
-            config = GPT2Config.from_json_file(model_path + '/config.json')
-            self.model = GPT2LMHeadModel.from_pretrained(model_path + '/pytorch_model.bin', config=config)
+            # config = GPT2Config.from_json_file(model_path + '/config.json')
+            config = GPT2Config()
+
+            # Initializing a model (with random weights) from the configuration
+            model_test = GPT2Model(config)
+
+            # Accessing the model configuration
+            config = model_test.config
+            print("inside custom")
+            # self.model = GPT2LMHeadModel.from_pretrained(model_path + '/pytorch_model.bin', config=config)
+            self.model = GPT2Model.from_pretrained("gpt2", config=config)
 
         elif self.model_size == "gpt3":
 
@@ -58,7 +68,7 @@ class gpt_gen:
             print("putting to gpu")
             self.model.to('cuda')
         self.mc_model = None
-        print("loaded", model)
+        print("loaded", self.model)
         self.gpt_tokens = list(self.tokenizer.get_vocab().keys())
         self.token_sentiment = pickle.load(open("saved_objects/bayes_token.p", "rb"))
 
@@ -1242,11 +1252,27 @@ class BeamManager:
                 gpt_size.split()) == 2, "custom should be in the form 'custom fine_tuning/twice_retrained' or something like that"
             model_path = gpt_size.split()[1]
 
-            config = GPT2Config.from_json_file(model_path + '/config.json')
-            self.model = CustomGPT2Model.from_pretrained(model_path + '/pytorch_model.bin', config=config)
+            gpt_size = "gpt2"
+
+            # config = GPT2Config.from_json_file(model_path + '/config.json')
+            # self.model = CustomGPT2Model.from_pretrained(model_path + '/pytorch_model.bin', config=config)
+
+              # config = GPT2Config.from_json_file(model_path + '/config.json')
+            config = GPT2Config()
+
+            # Initializing a model (with random weights) from the configuration
+            model_test = GPT2Model(config)
+
+            # Accessing the model configuration
+            config = model_test.config
+            print("inside custom 2")
+            # self.model = GPT2LMHeadModel.from_pretrained(model_path + '/pytorch_model.bin', config=config)
+            self.model = GPT2Model.from_pretrained("gpt2", config=config)
+
         else:
             # self.tokenizer = GPT2TokenizerFast.from_pretrained(gpt_size)
-            self.model = CustomGPT2Model.from_pretrained(gpt_size)
+            self.model = GPT2LMHeadModel.from_pretrained(gpt_size)
+            # self.model = CustomGPT2Model.from_pretrained(gpt_size)
 
         self.model_size = gpt_size
         self.model.poem_object = self  # looks dodgy but...
@@ -1257,8 +1283,9 @@ class BeamManager:
             self.gpt_tokenizer.add_special_tokens(special_dict)
 
         self.gpt_tokens = list(self.gpt_tokenizer.get_vocab().keys())
-
-        self.eos_token = self.gpt_tokenizer.eos_token = self.model.config.eos_token_id
+        print("eos_token_id", str(self.model.config.eos_token_id))
+        print(self.gpt_tokenizer.eos_token)
+        self.eos_token = self.gpt_tokenizer.eos_token = str(self.model.config.eos_token_id)
         self.newline_token = 198  # new line character
 
     def reset_to_new_line(self, rhyme_word, theme_words, alliteration, seed, internal_rhymes):

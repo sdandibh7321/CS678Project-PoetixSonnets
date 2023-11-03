@@ -364,11 +364,13 @@ class Scenery_Gen(poem_core.Poem):
 
         return ret
 
+# "custom fine_tuning/twice_retrained"
+
     def write_poem_revised(self, theme="love", verbose=False, rhyme_lines=True, all_verbs=False,
                            theme_lines=0, k=1, alliteration=1, theme_threshold=0.5, no_meter=False,
                            theme_choice="or", theme_cutoff=0.35, sum_similarity=True, weight_repetition=0,
                            theme_progression=False, story=False, story_file="saved_objects/story_graphs/love.txt",
-                           gpt_size="custom fine_tuning/twice_retrained", tense="rand", internal_rhyme=1, dynamik=False,
+                           gpt_size="gpt2", tense="rand", internal_rhyme=1, dynamik=False,
                            random_word_selection=False, verb_swap=False, rep_penalty=1,
                            b=3, b_inc=1, beam_score="token", phi_score=False):
 
