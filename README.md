@@ -51,8 +51,11 @@ To get related words
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-CS678 Team
+CS678 TEAM
+--------------
 
+Dependencies:
+-------------
 To setup the environment, first create a virtual environment using python -m venv path/to/virtualenv
 
 Activate the environment:
@@ -70,6 +73,30 @@ setup.sh
 Run using the command: 
  - Windows: bash setup.sh
  - Mac: sh setup.sh
+
+Now you should have all the dependencies needed to run the project.
+
+-------------------------
+
+Data/Other Files:
+-----------------
+
+You will also need to create two folders, both under the saved_objects/ folder:
+
+  - fasttext
+  - glove
+
+Download wiki-news-300d-1M.vec from 
+  https://fasttext.cc/docs/en/english-vectors.html
+into the saved_objects/fasttext/ directory you just created.
+
+Download glove.42B.300d.txt from the last link on 
+  https://github.com/sebastian-hofstaetter/teaching/discussions/71
+into the saved_objects/glove/ directory you just created.
+
+The results should look like this (minus some zip files).
+
+![image](https://github.com/sdandibh7321/CS678Project-PoetixSonnets/assets/16819982/95f586c5-fe08-43b1-a697-0db787e9443e)
 
 
 
