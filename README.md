@@ -97,7 +97,13 @@ into the saved_objects/glove/ directory you just created.
 The results should look like this (minus some zip files).
 
 ![image](https://github.com/sdandibh7321/CS678Project-PoetixSonnets/assets/16819982/95f586c5-fe08-43b1-a697-0db787e9443e)
+---------
 
+To Run:
+---------
 
+To run the poem generation script, run:
+
+  python gen_poem_script.py
 
 
