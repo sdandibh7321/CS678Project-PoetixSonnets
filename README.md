@@ -49,5 +49,28 @@ To get related words
 - theme = word(s) to get related words to
 - pos = POS of desired words (only works for NN, JJ, RB so far)
 
+-----------------------------------------------------------------------------------------------------------------------------
+
+CS678 Team
+
+To setup the environment, first create a virtual environment using python -m venv path/to/virtualenv
+
+Activate the environment:
+  - Windows: venv_name\Scripts\activate
+  - Mac: source venv_name/bin/activate
+
+Clone this repository into the desired folder (insde the virtual environment).
+
+Will work best with GPU allocated- instructions may vary based on evironment.
+
+To view or setup all the required packages and dependencies for this project, along with their versions, see
+
+setup.sh
+
+Run using the command: 
+ - Windows: bash setup.sh
+ - Mac: sh setup.sh
+
+
 
 
